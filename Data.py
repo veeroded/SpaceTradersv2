@@ -6,7 +6,13 @@ with open("Token.txt", "r") as f:
 
 def JsonDump(Bearer,item, file):
     with open(f"./Data/{file}", "w") as f:
-        json.dump(json.loads(get( f"https://api.spacetraders.io/v2/{item}",    headers={"Authorization": f"Bearer {Bearer}"},).text),f,indent = 4)
+        json.dump(
+            json.loads(
+                get( f"https://api.spacetraders.io/v2/{item}",    
+                    headers={"Authorization": f"Bearer {Bearer}"},).text),
+                    f,
+                    indent = 4
+            )
         
 def Agent(Bearer):
     JsonDump(Bearer,"my/agent" , "Agent.json")
