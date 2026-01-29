@@ -2,7 +2,7 @@ from requests import get, post
 import json
 
 with open("Token.txt", "r") as f:
-    Bearer = f.readline(0)
+    Bearer = f.read().replace("\n", "")
 
 
 def JsonDump(Bearer, item, file):
@@ -29,4 +29,3 @@ def Systems(Bearer):
 
 Systems(Bearer)
 Agent(Bearer)
-
