@@ -27,5 +27,9 @@ def Systems(Bearer):
     JsonDump(Bearer, "/systems", "Systems.json")
 
 
-Systems(Bearer)
+def Fleet(Bearer):
+    JsonDump(Bearer, "/my/ships", "Ships.json")
+
+
 Agent(Bearer)
+Fleet(Bearer)
