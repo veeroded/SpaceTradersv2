@@ -23,6 +23,10 @@ def Agent(Bearer):
     JsonDump(Bearer, "my/agent", "Agent.json")
 
 
+def Contracts(Bearer):
+    JsonDump(Bearer, "my/contracts", "Contracts.json")
+
+
 def Systems(Bearer):
     JsonDump(Bearer, "/systems", "Systems.json")
 
@@ -33,3 +37,4 @@ def Fleet(Bearer):
 
 Agent(Bearer)
 Fleet(Bearer)
+Contracts(Bearer)
