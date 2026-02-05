@@ -1,27 +1,42 @@
 import os
-import re
+from functools import partial
 
 
 def MainMenu():
     print("""
-    What Do you want to do 
+    What Do you want to do
     1.) Fleet
     2.) Contracts
-    3.) Stop
+    0.) Stop
     """)
-    
-    options = [Fleet() , Contracts(), Stop()]
-    
-    try :
-        options[int(input(">"))]
+
+    Selector([partial(Stop), partial(Fleet), partial(Contracts)])
+
+
+def Selector(options):
+    try:
+        options[int(input(">"))]()
     except IndexError:
-        print("Refrain from being stupid")
-        
+        ("Refrain from being stupid")
+
+
 def Fleet():
-    
+    print("""
+    What Do you want to do 
+    1.) Current Ships 
+    2.) Buy Ships
+    0.) Back
+    """)
+
+    if Selector([lambda: "Back"]) == "Back":
+        return
+    else:
+        pass
+
 
 def Contracts():
-    return "hi"
+    print("hi")
+
 
 def Stop():
     if ConfirmationPrompt():
@@ -29,17 +44,18 @@ def Stop():
     else:
         return
 
+
 def ConfirmationPrompt():
-    choice = input("Are you Sure y/n")
+    choice = input("Are you Sure y/n: ")
     if choice == "y":
         return True
     else:
         return False
 
-CarryOn = True
-FirstRun = input("Is this your first run of this program y/n")
 
-if FirstRun == "y":
+FirstRun = input("Is this your first run of this program y/n :")
+
+if (FirstRun == "y") and (ConfirmationPrompt()):
     if os.path.exists("./Data/"):
         os.makedirs("./Data/")
     Bearer = input("What is your Bearer")
@@ -48,8 +64,7 @@ if FirstRun == "y":
         f.write(Bearer)
 
 else:
-    with open("./Token.txt" , "r") as f:
-        bearer =
+    with open("Token.txt", "r") as f:
+        Bearer = f.read().replace("\n", "")
 
-while CarryOn:
-    MainMenu()
+MainMenu()
