@@ -1,9 +1,6 @@
 from requests import get, post
 import json
 
-with open("Token.txt", "r") as f:
-    Bearer = f.read().replace("\n", "")
-
 
 def JsonDump(Bearer, item, file):
     with open(f"./Data/{file}", "w") as f:
@@ -33,8 +30,3 @@ def Systems(Bearer):
 
 def Fleet(Bearer):
     JsonDump(Bearer, "/my/ships", "Ships.json")
-
-
-Agent(Bearer)
-Fleet(Bearer)
-Contracts(Bearer)

@@ -1,31 +1,35 @@
 import os
+from threading import Thread
 from functools import partial
+from DataSync import loop
 
 
 def MainMenu():
-    print("""
-    What Do you want to do
-    1.) Fleet
-    2.) Contracts
-    0.) Stop
-    """)
+    while True:
+        print("""
+What Do you want to do
+1.) Fleet
+2.) Contracts
+0.) Stop
+        """)
 
-    Selector([partial(Stop), partial(Fleet), partial(Contracts)])
+        Selector([partial(Stop), partial(Fleet), partial(Contracts)])
 
 
 def Selector(options):
     try:
-        options[int(input(">"))]()
+        user_input = int(input(">"))
+        return options[user_input]()
     except IndexError:
         ("Refrain from being stupid")
 
 
 def Fleet():
     print("""
-    What Do you want to do 
-    1.) Current Ships 
-    2.) Buy Ships
-    0.) Back
+What Do you want to do 
+1.) Current Ships 
+2.) Buy Ships
+0.) Back
     """)
 
     if Selector([lambda: "Back"]) == "Back":
@@ -53,18 +57,20 @@ def ConfirmationPrompt():
         return False
 
 
-FirstRun = input("Is this your first run of this program y/n :")
+FirstRun = input("Is this your first run of this program y/n :").strip().lower()
 
-if (FirstRun == "y") and (ConfirmationPrompt()):
-    if os.path.exists("./Data/"):
-        os.makedirs("./Data/")
-    Bearer = input("What is your Bearer")
-
+if FirstRun == "y":
+    Bearer = input("What is your Bearer\n")
     with open("./Token.txt", "w") as f:
         f.write(Bearer)
+    if not (os.path.exists("./Data/")):
+        os.makedirs("./Data/")
 
 else:
     with open("Token.txt", "r") as f:
         Bearer = f.read().replace("\n", "")
+
+LoopThread = Thread(target=loop, args=(Bearer,))
+LoopThread.start()
 
 MainMenu()
