@@ -11,7 +11,7 @@ def loop(Bearer):
     while True:
         Data.Agent(Bearer)
         Data.Fleet(Bearer)
-        time.sleep(30)
+        time.sleep(10)
 
 
 loop(Bearer)
