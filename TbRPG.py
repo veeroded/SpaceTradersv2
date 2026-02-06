@@ -13,15 +13,19 @@ What Do you want to do
 0.) Stop
         """)
 
-        Selector([partial(Stop), partial(Fleet), partial(Contracts)])
+        MenuSelector([partial(Stop), partial(Fleet), partial(Contracts)])
 
 
-def Selector(options):
+def MenuSelector(options):
     try:
         user_input = int(input(">"))
         return options[user_input]()
     except IndexError:
-        ("Refrain from being stupid")
+        print("Refrain from being stupid (INDEX)")
+        return
+    except ValueError:
+        print("Refrain from being stupid (VALUE)")
+        return
 
 
 def Fleet():
@@ -32,10 +36,7 @@ What Do you want to do
 0.) Back
     """)
 
-    if Selector([lambda: "Back"]) == "Back":
-        return
-    else:
-        pass
+    MenuSelector([lambda: "Back"])
 
 
 def Contracts():
