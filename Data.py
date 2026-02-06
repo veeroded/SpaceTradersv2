@@ -31,5 +31,5 @@ def Systems(Bearer):
     JsonDump(Bearer, "/systems", "Systems.json")
 
 
-def Fleet(Bearer):
+def Ships(Bearer):
     JsonDump(Bearer, "/my/ships", "Ships.json")
