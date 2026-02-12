@@ -2,18 +2,7 @@ import os
 from threading import Thread
 from functools import partial
 from DataSync import loop
-
-
-def MainMenu():
-    while True:
-        print("""
-What Do you want to do
-1.) Fleet
-2.) Contracts
-0.) Stop
-        """)
-
-        MenuSelector([partial(Stop), partial(Fleet), partial(Contracts)])
+from Fleet import Listships
 
 
 def MenuSelector(options):
@@ -28,7 +17,23 @@ def MenuSelector(options):
         return
 
 
-def Fleet():
+# MainMenu
+def MainMenu():
+    while True:
+        print("""
+What Do you want to do
+1.) Fleet
+2.) Contracts
+0.) Stop
+        """)
+
+        MenuSelector([partial(Stop), partial(Listships), partial(Contracts)])
+
+
+##Fleet
+
+
+def FleetMenu():
     print("""
 What Do you want to do 
 1.) Current Ships 
@@ -36,13 +41,20 @@ What Do you want to do
 0.) Back
     """)
 
-    MenuSelector([lambda: "Back"])
+    MenuSelector([lambda: "Back", partial(CurrentShips)])
 
 
+###
+def CurrentShips():
+    a = Listships()
+
+
+##Contracts
 def Contracts():
     print("hi")
 
 
+##Stop
 def Stop():
     if ConfirmationPrompt():
         os._exit(0)
